@@ -144,8 +144,7 @@ export default function Hero() {
   // 5. Trigger Transition safely
   useEffect(() => {
     if (phase === 'transitioning' && ctxRef.current) {
-      // @ts-expect-error - GSAP context dynamically adds methods
-      ctxRef.current.playTransition()
+      (ctxRef.current as any).playTransition()
     }
   }, [phase])
 
