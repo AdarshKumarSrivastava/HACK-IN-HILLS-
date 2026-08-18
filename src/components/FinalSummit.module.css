@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════
+   HACK IN HILLS — FOOTER
+   Premium compact editorial footer
+   ═══════════════════════════════════════════════ */
+
+.summitSection {
+  position: relative;
+  width: 100vw;
+  background-color: var(--color-volcanic-black);
+  color: var(--color-snow-white);
+}
+
+/* ─── Footer Content Container ─── */
+
+.footerContent {
+  position: relative;
+  z-index: var(--z-ui);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+/* ─── Top Separator ─── */
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 20%,
+    rgba(255, 255, 255, 0.12) 80%,
+    transparent 100%
+  );
+}
+
+/* ─── 3-Column Information Grid ─── */
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  padding: 3rem 0 2.5rem;
+}
+
+.footerCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.7;
+}
+
+.colLabel {
+  color: var(--color-expedition-orange);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.35rem;
+  opacity: 0.9;
+}
+
+/* ─── Social Links ─── */
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  width: fit-content;
+}
+
+.socialLink:hover {
+  color: var(--color-snow-white);
+}
+
+.socialLink:hover .arrow {
+  transform: translate(2px, -2px);
+  color: var(--color-expedition-orange);
+}
+
+.arrow {
+  font-size: 0.65rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  display: inline-block;
+}
+
+/* ─── Email Link ─── */
+
+.emailLink {
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  width: fit-content;
+}
+
+.emailLink:hover {
+  color: var(--color-expedition-orange);
+}
+
+/* ─── Closing Section ─── */
+
+.closingSection {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 2rem 0 2.5rem;
+}
+
+.finalLine {
+  font-size: 5vw;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+/* ─── Bottom Bar ─── */
+
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.25);
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.registerLink {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.3s ease;
+  letter-spacing: 0.2em;
+}
+
+.registerLink:hover {
+  color: var(--color-expedition-orange);
+}
+
+.registerLink:hover .arrow {
+  transform: translate(2px, -2px);
+  color: var(--color-expedition-orange);
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 1024px) {
+  .footerContent {
+    padding: 0 2rem;
+  }
+  .finalLine {
+    font-size: 6vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0 2rem;
+  }
+  .footerContent {
+    padding: 0 1.5rem;
+  }
+  .finalLine {
+    font-size: 7vw;
+  }
+  .bottomBar {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+}

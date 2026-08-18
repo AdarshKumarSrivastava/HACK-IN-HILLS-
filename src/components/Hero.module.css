@@ -1,0 +1,242 @@
+.heroContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-volcanic-black);
+}
+
+.backgroundLayer, .midgroundLayer, .snowLayer, .typographyLayer, .dataLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.backgroundLayer {
+  z-index: var(--z-mountain-back);
+}
+
+.mountainBack {
+  width: 110%;
+  height: 110%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  transform-origin: center center;
+  opacity: 0.6;
+  filter: contrast(1.2) grayscale(0.2);
+}
+
+.fogBack {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, var(--color-volcanic-black) 0%, transparent 100%);
+  z-index: var(--z-fog-back);
+}
+
+.snowLayer {
+  z-index: var(--z-snow);
+  pointer-events: none;
+}
+
+.typographyLayer {
+  z-index: var(--z-typography);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: screen;
+  width: 100%;
+  height: 100%;
+  padding-top: calc(var(--nav-height) + 2vh); /* Slightly reduced buffer to allow larger text */
+  padding-bottom: 2vh;
+}
+
+.typographyLayer h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--color-snow-white);
+  white-space: nowrap;
+  margin: 0;
+}
+
+.wordHack {
+  font-size: min(15vw, 24vh);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding-left: 0.02em; 
+}
+
+.wordIn {
+  font-size: min(4vw, 7vh);
+  font-weight: 500;
+  margin: min(0vw, 1vh) 0; 
+  color: var(--color-expedition-orange);
+  letter-spacing: 0.4em;
+  text-align: center;
+  padding-left: 0.4em; 
+}
+
+.wordHills {
+  font-size: min(26vw, 42vh);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+  padding-right: 0.02em; 
+}
+
+.subtitle {
+  font-size: 1rem;
+  letter-spacing: 0.8em;
+  margin-top: 3vw;
+  opacity: 0.8;
+  text-align: center;
+  padding-left: 0.8em; /* Optical center compensation */
+}
+
+.midgroundLayer {
+  z-index: var(--z-mountain-mid);
+  pointer-events: none;
+}
+
+.mountainMidGradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, var(--color-volcanic-black) 20%, transparent 100%);
+}
+
+.dataLayer {
+  z-index: var(--z-ui);
+  pointer-events: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--color-glacier-white);
+}
+
+.dataRight {
+  position: absolute;
+  top: 50%;
+  right: var(--hero-gutter-x);
+  transform: translateY(-50%);
+  text-align: right;
+  line-height: 1.6;
+}
+
+.dataBottom {
+  position: absolute;
+  bottom: var(--hero-gutter-y);
+  right: var(--hero-gutter-x);
+  text-align: right;
+  line-height: 1.6;
+}
+
+.dataBottomLeft {
+  position: absolute;
+  bottom: var(--hero-gutter-y);
+  left: var(--hero-gutter-x);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+/* Primary CTA Interactions */
+.interactionLayer {
+  position: absolute;
+  bottom: var(--hero-gutter-y);
+  left: var(--hero-gutter-x);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: var(--z-ui);
+}
+
+.primaryCta {
+  background: none;
+  border: none;
+  color: var(--color-snow-white);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.ctaText {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaLine {
+  width: 40px;
+  height: 1px;
+  background-color: var(--color-snow-white);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s;
+}
+
+.ctaArrow {
+  font-size: 1rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s;
+}
+
+.primaryCta:hover .ctaText {
+  transform: translateX(-10px);
+}
+
+.primaryCta:hover .ctaLine {
+  width: 80px;
+  background-color: var(--color-expedition-orange);
+}
+
+.primaryCta:hover .ctaArrow {
+  transform: translateX(10px);
+  color: var(--color-expedition-orange);
+}
+
+.secondaryCta {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--color-glacier-white);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  display: inline-block;
+}
+
+.secondaryCta:hover {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .wordHack { font-size: 26vw; }
+  .wordIn { font-size: 8vw; }
+  .wordHills { font-size: 26vw; }
+  .interactionLayer { bottom: 2rem; left: 2rem; }
+  .ctaText { font-size: 0.85rem; }
+  .ctaLine { width: 20px; }
+  .dataTopLeft, .dataTopRight, .dataRight, .dataBottom, .dataBottomLeft {
+    top: auto; right: auto; bottom: auto; left: auto; transform: none; position: static;
+    margin-bottom: 1rem;
+  }
+  .dataLayer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .dataRight { display: none; }
+}

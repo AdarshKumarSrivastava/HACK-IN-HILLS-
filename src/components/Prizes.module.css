@@ -1,0 +1,96 @@
+.prizesSection {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--color-snow-white);
+  padding: 10rem 0;
+}
+
+.prizesBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.4) grayscale(0.5);
+  z-index: var(--z-background);
+  transform-origin: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, var(--color-volcanic-black) 80%);
+  z-index: var(--z-background);
+}
+
+.content {
+  position: relative;
+  z-index: var(--z-ui);
+  text-align: center;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  margin-bottom: 2rem;
+}
+
+.number {
+  font-size: 15vw;
+  line-height: 1;
+  margin: 0;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.label {
+  font-size: 2.5rem;
+  letter-spacing: 0.1em;
+  margin-top: -1rem;
+  margin-bottom: 6rem;
+  opacity: 0.9;
+}
+
+.detailsGrid {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 4rem;
+}
+
+.detailCard {
+  text-align: center;
+  flex: 1;
+}
+
+.detailCard h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.detailCard p {
+  color: var(--color-glacier-white);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .number { font-size: 25vw; }
+  .label { font-size: 1.5rem; }
+  .detailsGrid {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}

@@ -1,0 +1,98 @@
+:root {
+  /* Himalayan Winter Palette */
+  --color-volcanic-black: #050505;
+  --color-charcoal: #111111;
+  --color-graphite: #1f1f1f;
+  --color-snow-white: #fdfdfd;
+  --color-glacier-white: #e0e5ec;
+  --color-cold-grey: #8a94a6;
+  --color-steel-blue: #4a5c75;
+  --color-deep-alpine-blue: #0b1320;
+  
+  /* Accent */
+  --color-expedition-orange: #ff5722;
+  
+  /* Z-Index Layers */
+  --z-background: -10;
+  --z-mountain-back: 10;
+  --z-fog-back: 20;
+  --z-mountain-mid: 30;
+  --z-typography: 40;
+  --z-fog-mid: 50;
+  --z-mountain-front: 60;
+  --z-snow: 70;
+  --z-ui: 100;
+  --z-nav: 200;
+  --z-cursor: 9999;
+  
+  /* Master Grid Layout Variables */
+  --hero-gutter-x: clamp(2rem, 5vw, 4rem);
+  --hero-gutter-y: clamp(2.5rem, 5vw, 4rem);
+  --nav-height: 80px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-volcanic-black);
+  color: var(--color-snow-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a, button {
+  cursor: pointer;
+}
+
+/* Fallback bulletproof Custom Cursor Logic */
+body[data-custom-cursor="true"], 
+body[data-custom-cursor="true"] * {
+  cursor: none !important;
+}
+
+/* Exempt text inputs from cursor: none */
+body[data-custom-cursor="true"] input,
+body[data-custom-cursor="true"] textarea,
+body[data-custom-cursor="true"] [contenteditable="true"] {
+  cursor: text !important;
+}
+
+/* Typography Classes */
+.font-display { font-family: var(--font-display); }
+.font-body { font-family: var(--font-body); }
+.font-technical { font-family: var(--font-technical); }
+
+/* Lenis smooth scrolling requires this */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Navbar offset compensation */
+section[id] {
+  scroll-margin-top: 56px;
+}
+#hero {
+  scroll-margin-top: 0;
+}
+
+/* Utility classes */
+.text-orange { color: var(--color-expedition-orange); }
+.bg-orange { background-color: var(--color-expedition-orange); }

@@ -1,0 +1,336 @@
+.tracksSection {
+  position: relative;
+  min-height: 100vh;
+  background-color: #070707;
+  padding: 4rem;
+  color: var(--color-snow-white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   1. EXACT MATCH ATMOSPHERIC BACKGROUND
+   ========================================================================== */
+
+.backgroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bgImageWrapper {
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  pointer-events: none;
+}
+
+.bgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  animation: slowDrift 25s ease-in-out infinite alternate;
+}
+
+@keyframes slowDrift {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.015); }
+}
+
+.darkOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.30) 0%,
+    rgba(5, 7, 9, 0.15) 50%,
+    rgba(0, 0, 0, 0.30) 100%
+  );
+}
+
+.metadataMarker {
+  position: absolute;
+  font-family: var(--font-technical);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.topLeft {
+  top: 2rem;
+  left: 2rem;
+}
+
+.topRight {
+  top: 2rem;
+  right: 2rem;
+}
+
+.bottomRight {
+  bottom: 2rem;
+  right: 2rem;
+}
+
+
+/* ==========================================================================
+   2. LAYOUT & STRUCTURE
+   ========================================================================== */
+
+.contentWrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  margin-top: 4rem;
+}
+
+
+/* ==========================================================================
+   3. FAR LEFT GLOBAL NAVIGATION
+   ========================================================================== */
+
+.globalNavPath {
+  position: relative;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.globalPathLine {
+  position: absolute;
+  top: 2rem;
+  bottom: 2rem;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.globalNode {
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
+
+.activeGlobalNode {
+  background: var(--color-expedition-orange);
+}
+
+.globalLabel {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-technical);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--color-snow-white);
+  white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   4. CENTER WAYPOINT MAP
+   ========================================================================== */
+
+.waypointMap {
+  flex: 1;
+  position: relative;
+  min-height: 600px;
+}
+
+.waypoint {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.waypointIndicator {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.waypointRing {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.waypointCore {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.waypoint.active .waypointRing {
+  border-color: rgba(255, 102, 0, 0.2);
+  transform: scale(1.5);
+}
+
+.waypoint.active .waypointCore {
+  background: rgba(255, 102, 0, 0.2);
+  border-color: var(--color-expedition-orange);
+  width: 12px;
+  height: 12px;
+}
+
+.waypointLabel {
+  font-family: var(--font-technical);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.waypoint.active .waypointLabel,
+.waypoint:hover .waypointLabel {
+  color: var(--color-snow-white);
+}
+
+.waypoint:hover .waypointCore {
+  background: rgba(255, 255, 255, 1);
+}
+
+
+/* ==========================================================================
+   5. RIGHT INFORMATION PANEL
+   ========================================================================== */
+
+.rightPanel {
+  flex: 0 0 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detailCard {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.detailId {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.detailCard h3 {
+  font-size: 3.5rem;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.detailSubtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 3rem;
+}
+
+.metaDataGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* ==========================================================================
+   6. PREMIUM CTA BUTTON
+   ========================================================================== */
+
+.registerBtn {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255, 102, 0, 0.4);
+  padding: 1.25rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-align: left;
+  cursor: none;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.btnContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnArrow {
+  transition: transform 0.3s ease;
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.registerBtn:hover {
+  background: rgba(255, 102, 0, 0.05);
+}
+
+.registerBtn:hover .btnArrow {
+  transform: translate(3px, -3px);
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .rightPanel { flex: 0 0 350px; }
+  .detailCard h3 { font-size: 2.5rem; }
+}
+
+@media (max-width: 1024px) {
+  .tracksSection { padding: 2rem; }
+  .contentWrapper { flex-direction: column; gap: 4rem; }
+  .globalNavPath { display: none; }
+  .rightPanel { flex: none; width: 100%; }
+  .waypointMap { min-height: 400px; }
+}
+
+@media (max-width: 768px) {
+  .tracksSection { padding: 1rem; }
+  .detailCard { padding: 1.5rem; }
+  .detailCard h3 { font-size: 2rem; }
+}
