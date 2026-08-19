@@ -13,7 +13,7 @@
 
 .backButton {
   position: absolute;
-  top: 3rem;
+  top: calc(var(--nav-height) + 1.5rem);
   left: 3rem;
   z-index: 50;
   font-size: 0.85rem;
