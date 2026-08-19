@@ -2,7 +2,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import styles from './Navigation.module.css'
 import { useTransition } from '@/context/TransitionContext'
@@ -22,8 +22,11 @@ export default function Navigation() {
   const menuRef = useRef<HTMLDivElement>(null)
   const linksRef = useRef<HTMLUListElement>(null)
   const navContainerRef = useRef<HTMLElement>(null)
+  const registerBtnRef = useRef<HTMLButtonElement>(null)
   
-  const { phase } = useTransition()
+  const { phase, startRegistrationTransition, transitionState } = useTransition()
+  const pathname = usePathname()
+  const router = useRouter()
 
   // App initialization & reveal
   useEffect(() => {
@@ -176,11 +179,26 @@ export default function Navigation() {
     }
   }
 
-  const router = useRouter()
-
-  const handleRegisterClick = () => {
+  const handleRegisterClick = (e: React.MouseEvent) => {
     setIsOpen(false)
-    router.push('/register')
+    
+    // Phase 01: Click Response
+    const btn = e.currentTarget as HTMLElement
+    gsap.to(btn, {
+      scale: 0.95,
+      opacity: 0.8,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    })
+
+    // Start full cinematic transition
+    startRegistrationTransition('/register')
+  }
+
+  // Absolute requirement: Hide Navbar on Registration Page or while actively exiting from it
+  if (pathname === '/register' || transitionState === 'exiting_register') {
+    return null
   }
 
   return (
@@ -220,6 +238,7 @@ export default function Navigation() {
         <div className={styles.navRight}>
           {/* Desktop Register Button */}
           <button 
+            ref={registerBtnRef}
             className={`${styles.registerBtn} font-technical`}
             onClick={handleRegisterClick}
           >

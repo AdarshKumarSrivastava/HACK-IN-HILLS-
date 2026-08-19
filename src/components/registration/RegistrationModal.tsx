@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import gsap from 'gsap'
 import styles from './RegistrationModal.module.css'
+import { useTransition } from '@/context/TransitionContext'
 
 type Step = 'IDENTITY' | 'TEAM' | 'EXPEDITION' | 'FINAL' | 'SUBMITTING' | 'SUCCESS' | 'ERROR'
 
@@ -13,13 +14,43 @@ export default function RegistrationModal() {
   const [currentStep, setCurrentStep] = useState<Step>('IDENTITY')
   const searchParams = useSearchParams()
   const initialTrack = searchParams.get('track') || ''
-  
+
   const [regId, setRegId] = useState('')
   const sectionRef = useRef<HTMLElement>(null)
   const bgRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
-  // Form State
+  const { startExitTransition } = useTransition()
+
+  const handleExit = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const btn = e.currentTarget as HTMLElement
+    
+    // Phase A: Button interaction
+    gsap.to(btn, {
+      scale: 0.95,
+      opacity: 0.5,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    })
+    
+    // Phase B: Form collapse
+    if (sectionRef.current) {
+      gsap.to(sectionRef.current, {
+        scale: 0.95,
+        opacity: 0,
+        filter: 'blur(10px)',
+        duration: 0.6,
+        ease: 'power3.inOut'
+      })
+    }
+
+    // Trigger Phase C & D & E inside TransitionContext overlay
+    startExitTransition('/')
+  }
+
+  // Form Statees
   const [formData, setFormData] = useState({
     fullName: '', email: '', phone: '', college: '', degree: '', year: '',
     teamName: '', teamSize: '1', leader: '', github: '', linkedin: '',
@@ -31,12 +62,12 @@ export default function RegistrationModal() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!sectionRef.current || !bgRef.current) return
-      
+
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       if (prefersReducedMotion) return
 
       const rect = sectionRef.current.getBoundingClientRect()
-      
+
       // Only parallax if the section is somewhat in view
       if (rect.top > window.innerHeight || rect.bottom < 0) return
 
@@ -71,9 +102,19 @@ export default function RegistrationModal() {
     }
   }
 
+  // Initial Entry Animation
+  useEffect(() => {
+    if (contentRef.current) {
+      gsap.fromTo(contentRef.current.children, 
+        { y: 20, opacity: 0, filter: 'blur(10px)' }, 
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.8, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
+      )
+    }
+  }, [])
+
   const submitRegistration = async () => {
     nextStep('SUBMITTING')
-    
+
     // Simulate Supabase API Call
     try {
       await new Promise(resolve => setTimeout(resolve, 2500))
@@ -91,13 +132,13 @@ export default function RegistrationModal() {
 
   return (
     <section id="registration" ref={sectionRef} className={styles.section}>
-      <Link href="/" className={`${styles.backButton} font-technical interactive`}>
+      <button onClick={handleExit} className={`${styles.backButton} font-technical interactive`} style={{ background: 'none', border: 'none', cursor: 'pointer', outline: 'none' }}>
         ← BACK TO EXPEDITION
-      </Link>
+      </button>
 
       <div ref={bgRef} className={styles.background}>
-        <Image 
-          src="/images/registration-bg-4k.jpg" 
+        <Image
+          src="/images/registration-bg-4k.jpg"
           alt="Himalayan Expedition"
           fill
           unoptimized={true}
@@ -109,12 +150,12 @@ export default function RegistrationModal() {
 
       <div className={styles.container}>
         <div ref={contentRef} className={styles.content}>
-          
+
           {currentStep === 'IDENTITY' && (
             <div className={styles.stepBlock}>
-              <h2 className="font-display">ENTER THE<br/>EXPEDITION.</h2>
+              <h2 className="font-display">ENTER THE<br />EXPEDITION.</h2>
               <div className="font-technical text-cold-grey mb-8">STEP 01 — IDENTITY</div>
-              
+
               <div className={styles.grid}>
                 <input name="fullName" placeholder="FULL NAME" value={formData.fullName} onChange={handleChange} className={styles.input} />
                 <input name="email" type="email" placeholder="EMAIL ADDRESS" value={formData.email} onChange={handleChange} className={styles.input} />
@@ -138,9 +179,9 @@ export default function RegistrationModal() {
 
           {currentStep === 'TEAM' && (
             <div className={styles.stepBlock}>
-              <h2 className="font-display">FORM YOUR<br/>SQUAD.</h2>
+              <h2 className="font-display">FORM YOUR<br />SQUAD.</h2>
               <div className="font-technical text-cold-grey mb-8">STEP 02 — TEAM</div>
-              
+
               <div className={styles.grid}>
                 <input name="teamName" placeholder="TEAM NAME" value={formData.teamName} onChange={handleChange} className={styles.input} />
                 <select name="teamSize" value={formData.teamSize} onChange={handleChange} className={styles.input}>
@@ -151,7 +192,7 @@ export default function RegistrationModal() {
                 </select>
                 <input name="leader" placeholder="TEAM LEADER NAME" value={formData.leader} onChange={handleChange} className={styles.input} />
                 <input name="github" placeholder="GITHUB PROFILE URL" value={formData.github} onChange={handleChange} className={styles.input} />
-                <input name="linkedin" placeholder="LINKEDIN / PORTFOLIO" value={formData.linkedin} onChange={handleChange} className={styles.input} style={{ gridColumn: '1 / -1' }}/>
+                <input name="linkedin" placeholder="LINKEDIN / PORTFOLIO" value={formData.linkedin} onChange={handleChange} className={styles.input} style={{ gridColumn: '1 / -1' }} />
               </div>
 
               <div className={styles.actions}>
@@ -162,9 +203,9 @@ export default function RegistrationModal() {
 
           {currentStep === 'EXPEDITION' && (
             <div className={styles.stepBlock}>
-              <h2 className="font-display">CHOOSE YOUR<br/>SUMMIT.</h2>
+              <h2 className="font-display">CHOOSE YOUR<br />SUMMIT.</h2>
               <div className="font-technical text-cold-grey mb-8">STEP 03 — EXPEDITION</div>
-              
+
               <div className={styles.formGroup}>
                 <select name="track" value={formData.track} onChange={handleChange} className={styles.input}>
                   <option value="">SELECT PREFERRED TRACK</option>
@@ -174,7 +215,7 @@ export default function RegistrationModal() {
                   <option value="GAME DEV / AR / VR">DIGITAL WORLDS (AR/VR)</option>
                   <option value="OPEN INNOVATION">FRONTIER (OPEN)</option>
                 </select>
-                
+
                 <input name="skills" placeholder="PRIMARY SKILLS / TECHNOLOGIES" value={formData.skills} onChange={handleChange} className={styles.input} />
                 <textarea name="idea" placeholder="BRIEF PROJECT IDEA (OPTIONAL)" value={formData.idea} onChange={handleChange} className={styles.textarea} />
               </div>
@@ -187,17 +228,17 @@ export default function RegistrationModal() {
 
           {currentStep === 'FINAL' && (
             <div className={styles.stepBlock}>
-              <h2 className="font-display">LOGISTICS &<br/>CONFIRMATION.</h2>
+              <h2 className="font-display">LOGISTICS &<br />CONFIRMATION.</h2>
               <div className="font-technical text-cold-grey mb-8">STEP 04 — FINAL</div>
-              
+
               <div className={styles.formGroup}>
                 <select name="accommodation" value={formData.accommodation} onChange={handleChange} className={styles.input}>
                   <option value="No">ACCOMMODATION REQUIRED? (NO)</option>
                   <option value="Yes">ACCOMMODATION REQUIRED? (YES)</option>
                 </select>
-                
+
                 <input name="dietary" placeholder="DIETARY RESTRICTIONS (IF ANY)" value={formData.dietary} onChange={handleChange} className={styles.input} />
-                
+
                 <label className={styles.checkboxLabel}>
                   <input type="checkbox" name="terms" checked={formData.terms} onChange={handleChange} />
                   <span className="font-technical text-cold-grey text-sm">I ACCEPT THE EXPEDITION RULES AND CONDITIONS.</span>
@@ -205,8 +246,8 @@ export default function RegistrationModal() {
               </div>
 
               <div className={styles.actions}>
-                <button 
-                  onClick={submitRegistration} 
+                <button
+                  onClick={submitRegistration}
                   disabled={!formData.terms}
                   className={`${styles.submitBtn} font-technical interactive registerBtn`}
                 >
@@ -225,9 +266,9 @@ export default function RegistrationModal() {
 
           {currentStep === 'SUCCESS' && (
             <div className={styles.successState}>
-              <h2 className="font-display text-snow-white">EXPEDITION<br/>CONFIRMED.</h2>
+              <h2 className="font-display text-snow-white">EXPEDITION<br />CONFIRMED.</h2>
               <div className="font-technical text-orange mt-4 mb-12">WELCOME TO HACK IN HILLS, MANALI.</div>
-              
+
               <div className={styles.metaBox}>
                 <div className="font-technical text-cold-grey mb-2" style={{ fontSize: '0.65rem' }}>REFERENCE ID</div>
                 <div className="font-technical text-xl">{regId}</div>
@@ -237,9 +278,9 @@ export default function RegistrationModal() {
 
           {currentStep === 'ERROR' && (
             <div className={styles.errorState}>
-              <h2 className="font-display text-snow-white">SIGNAL<br/>LOST.</h2>
+              <h2 className="font-display text-snow-white">SIGNAL<br />LOST.</h2>
               <div className="font-technical text-cold-grey mt-4 mb-12">WE COULD NOT COMPLETE YOUR REGISTRATION.</div>
-              
+
               <button onClick={() => setCurrentStep('FINAL')} className={`${styles.btn} font-technical interactive`}>TRY AGAIN ↗</button>
             </div>
           )}

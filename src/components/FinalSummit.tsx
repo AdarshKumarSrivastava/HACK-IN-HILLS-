@@ -4,11 +4,12 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './FinalSummit.module.css'
-import Link from 'next/link'
+import { useTransition } from '@/context/TransitionContext'
 
 export default function FinalSummit() {
   const containerRef = useRef<HTMLDivElement>(null)
   const footerContentRef = useRef<HTMLDivElement>(null)
+  const { startRegistrationTransition } = useTransition()
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -35,6 +36,19 @@ export default function FinalSummit() {
       }
     )
   }, [])
+
+  const handleRegister = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const btn = e.currentTarget as HTMLElement
+    gsap.to(btn, {
+      scale: 0.95,
+      opacity: 0.8,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    })
+    startRegistrationTransition('/register')
+  }
 
   return (
     <footer id="summit" ref={containerRef} className={styles.summitSection}>
@@ -85,9 +99,9 @@ export default function FinalSummit() {
           
           <div className={styles.bottomBar}>
             <span className="font-technical">HACK IN HILLS / MANALI</span>
-            <Link href="/register" className={`${styles.registerLink} font-technical interactive`}>
+            <button onClick={handleRegister} className={`${styles.registerLink} font-technical interactive`} style={{ background: 'none', border: 'none', color: 'inherit', padding: 0, cursor: 'pointer' }}>
               REGISTER <span className={styles.arrow}>↗</span>
-            </Link>
+            </button>
             <span className="font-technical">© 2026</span>
           </div>
         </div>

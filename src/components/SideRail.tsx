@@ -2,6 +2,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import styles from './SideRail.module.css'
 import { useTransition } from '@/context/TransitionContext'
@@ -15,6 +16,7 @@ const sections = [
 ]
 
 export default function SideRail() {
+  const pathname = usePathname()
   const [activeSection, setActiveSection] = useState('hero')
   const [hideRail, setHideRail] = useState(false)
   const railRef = useRef<HTMLDivElement>(null)
@@ -104,6 +106,10 @@ export default function SideRail() {
       window.removeEventListener('resize', onScroll)
     }
   }, [])
+
+  if (pathname === '/register') {
+    return null
+  }
 
   return (
     <div ref={railRef} className={`${styles.sideRail} font-technical`} style={{ opacity: hideRail ? 0 : 1, transition: 'opacity 0.4s ease', pointerEvents: hideRail ? 'none' : undefined }}>

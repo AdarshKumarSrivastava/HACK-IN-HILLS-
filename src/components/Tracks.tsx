@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './Tracks.module.css'
+import { useTransition } from '@/context/TransitionContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -125,10 +126,18 @@ export default function Tracks() {
     })
   }
 
-  const router = useRouter()
+  const { startRegistrationTransition } = useTransition()
 
-  const handleRegister = (track: typeof tracks[0]) => {
-    router.push(`/register?track=${encodeURIComponent(track.subtitle)}`)
+  const handleRegister = (track: typeof tracks[0], e: React.MouseEvent) => {
+    const btn = e.currentTarget as HTMLElement
+    gsap.to(btn, {
+      scale: 0.95,
+      opacity: 0.8,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    })
+    startRegistrationTransition(`/register?track=${encodeURIComponent(track.subtitle)}`)
   }
 
   return (
@@ -214,7 +223,7 @@ export default function Tracks() {
 
               <button 
                 className={`${styles.registerBtn} font-technical interactive`}
-                onClick={() => handleRegister(tracks[displayedTrack])}
+                onClick={(e) => handleRegister(tracks[displayedTrack], e)}
               >
                 <div className={styles.btnContent}>
                   <span style={{ color: 'rgba(255,255,255,0.7)', display: 'block', marginBottom: '0.25rem' }}>READY TO CLIMB?</span>

@@ -7,6 +7,7 @@ import SnowCursor from '@/components/canvas/SnowCursor'
 import Navigation from '@/components/Navigation'
 import SideRail from '@/components/SideRail'
 import { TransitionProvider } from '@/context/TransitionContext'
+import RegistrationTransition from '@/components/registration/RegistrationTransition'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-display' })
@@ -34,6 +35,7 @@ export default function RootLayout({
         <TransitionProvider>
           <SmoothScroll>
             <SnowCursor />
+            <RegistrationTransition />
             <Navigation />
             <SideRail />
             {children}

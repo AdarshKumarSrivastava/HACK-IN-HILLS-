@@ -13,11 +13,18 @@ const SnowSystem = dynamic(() => import('./canvas/SnowSystem'), { ssr: false })
 const FogSystem = dynamic(() => import('./canvas/FogSystem'), { ssr: false })
 
 export default function Hero() {
-  const router = useRouter()
-  const { phase, setPhase } = useTransition()
+  const { phase, setPhase, startRegistrationTransition } = useTransition()
   
-  const handleRegisterClick = () => {
-    router.push('/register')
+  const handleRegisterClick = (e: React.MouseEvent) => {
+    const btn = e.currentTarget as HTMLElement
+    gsap.to(btn, {
+      scale: 0.95,
+      opacity: 0.8,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    })
+    startRegistrationTransition('/register')
   }
 
   const containerRef = useRef<HTMLDivElement>(null)

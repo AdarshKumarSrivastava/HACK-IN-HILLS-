@@ -1,0 +1,146 @@
+.transitionContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.active {
+  pointer-events: auto;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, var(--color-charcoal) 0%, var(--color-volcanic-black) 100%);
+  clip-path: inset(50% 50% 50% 50%);
+  opacity: 0;
+}
+
+.noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0;
+}
+
+.typographyContainer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 6rem);
+  letter-spacing: 0.05em;
+  color: var(--color-snow-white);
+  line-height: 0.9;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.titleLine {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.char {
+  transform: translateY(100%);
+  opacity: 0;
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--color-cold-grey);
+  opacity: 0;
+}
+
+.ascentLineContainer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+}
+
+.ascentLine {
+  width: 100%;
+  height: 0%;
+  background-color: var(--color-expedition-orange);
+  will-change: height;
+}
+
+.horizontalBridge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0%;
+  height: 1px;
+  background-color: var(--color-expedition-orange);
+  will-change: width;
+}
+
+/* Micro-interactions */
+.coordinate {
+  position: absolute;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--color-cold-grey);
+  opacity: 0;
+  font-family: var(--font-technical);
+}
+
+.coordTopLeft { top: 2rem; left: 2rem; }
+.coordBottomRight { bottom: 2rem; right: 2rem; }
+
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  transform: translateY(-10px);
+}
