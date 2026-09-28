@@ -11,8 +11,9 @@ function SnowParticles() {
 
   // Generate particles
   const [positions, scales, speeds] = useMemo(() => {
-    const isMobile = window.innerWidth < 768
-    const count = isMobile ? 150 : 500
+    const isMobile = window.innerWidth < 480
+    const isTablet = window.innerWidth < 1024
+    const count = isMobile ? 80 : isTablet ? 150 : 500
     const positions = new Float32Array(count * 3)
     const scales = new Float32Array(count)
     const speeds = new Float32Array(count * 2) // speedX, speedY

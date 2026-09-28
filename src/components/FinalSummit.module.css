@@ -5,7 +5,7 @@
 
 .summitSection {
   position: relative;
-  width: 100vw;
+  width: 100%;
   background-color: var(--color-volcanic-black);
   color: var(--color-snow-white);
 }
@@ -17,7 +17,7 @@
   z-index: var(--z-ui);
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 0 var(--section-padding-x);
 }
 
 /* ─── Top Separator ─── */
@@ -39,15 +39,15 @@
 .footerGrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
-  padding: 3rem 0 2.5rem;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding: clamp(2rem, 3vw, 3rem) 0 clamp(1.5rem, 2.5vw, 2.5rem);
 }
 
 .footerCol {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  font-size: 0.7rem;
+  font-size: clamp(0.6rem, 0.7vw, 0.7rem);
   letter-spacing: 0.14em;
   color: rgba(255, 255, 255, 0.4);
   line-height: 1.7;
@@ -55,7 +55,7 @@
 
 .colLabel {
   color: var(--color-expedition-orange);
-  font-size: 0.6rem;
+  font-size: clamp(0.5rem, 0.6vw, 0.6rem);
   letter-spacing: 0.2em;
   margin-bottom: 0.35rem;
   opacity: 0.9;
@@ -71,15 +71,18 @@
   text-decoration: none;
   transition: color 0.3s ease;
   width: fit-content;
+  min-height: var(--touch-min);
 }
 
-.socialLink:hover {
-  color: var(--color-snow-white);
-}
+@media (hover: hover) and (pointer: fine) {
+  .socialLink:hover {
+    color: var(--color-snow-white);
+  }
 
-.socialLink:hover .arrow {
-  transform: translate(2px, -2px);
-  color: var(--color-expedition-orange);
+  .socialLink:hover .arrow {
+    transform: translate(2px, -2px);
+    color: var(--color-expedition-orange);
+  }
 }
 
 .arrow {
@@ -95,24 +98,33 @@
   text-decoration: none;
   transition: color 0.3s ease;
   width: fit-content;
+  min-height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  /* Prevent long email from overflowing */
+  word-break: break-all;
 }
 
-.emailLink:hover {
-  color: var(--color-expedition-orange);
+@media (hover: hover) and (pointer: fine) {
+  .emailLink:hover {
+    color: var(--color-expedition-orange);
+  }
 }
 
 /* ─── Closing Section ─── */
 
 .closingSection {
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 2rem 0 2.5rem;
+  padding: clamp(1.5rem, 2vw, 2rem) 0 clamp(1.5rem, 2.5vw, 2.5rem);
 }
 
 .finalLine {
-  font-size: 5vw;
+  font-size: clamp(1.5rem, 5vw, 5vw);
   text-align: center;
   color: rgba(255, 255, 255, 0.06);
-  white-space: nowrap;
+  /* Allow wrapping instead of overflowing */
+  white-space: normal;
+  word-break: break-word;
   user-select: none;
   line-height: 1;
   margin-bottom: 1.5rem;
@@ -124,11 +136,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.6rem;
+  font-size: clamp(0.5rem, 0.6vw, 0.6rem);
   letter-spacing: 0.15em;
   color: rgba(255, 255, 255, 0.25);
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.04);
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .registerLink {
@@ -139,43 +153,46 @@
   gap: 0.3rem;
   transition: color 0.3s ease;
   letter-spacing: 0.2em;
+  min-height: var(--touch-min);
 }
 
-.registerLink:hover {
-  color: var(--color-expedition-orange);
-}
+@media (hover: hover) and (pointer: fine) {
+  .registerLink:hover {
+    color: var(--color-expedition-orange);
+  }
 
-.registerLink:hover .arrow {
-  transform: translate(2px, -2px);
-  color: var(--color-expedition-orange);
+  .registerLink:hover .arrow {
+    transform: translate(2px, -2px);
+    color: var(--color-expedition-orange);
+  }
 }
 
 /* ─── Responsive ─── */
 
 @media (max-width: 1024px) {
-  .footerContent {
-    padding: 0 2rem;
-  }
   .finalLine {
-    font-size: 6vw;
+    font-size: clamp(1.5rem, 5vw, 4rem);
   }
 }
 
 @media (max-width: 768px) {
   .footerGrid {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 2.5rem 0 2rem;
-  }
-  .footerContent {
-    padding: 0 1.5rem;
+    gap: clamp(1.5rem, 3vw, 2rem);
+    padding: clamp(2rem, 4vw, 2.5rem) 0 clamp(1.5rem, 3vw, 2rem);
   }
   .finalLine {
-    font-size: 7vw;
+    font-size: clamp(1.2rem, 6vw, 2.5rem);
   }
   .bottomBar {
     flex-direction: column;
     gap: 0.8rem;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .finalLine {
+    font-size: clamp(1rem, 7vw, 2rem);
   }
 }

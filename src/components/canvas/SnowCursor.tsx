@@ -6,11 +6,12 @@ export default function SnowCursor() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    // 1. Detect Touch Devices
+    // 1. Detect Touch Devicessss
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
     if (isTouchDevice) return
 
-    // 2. Motion preferences
+    // 2. Motion preferencesss
+    
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const canvas = canvasRef.current

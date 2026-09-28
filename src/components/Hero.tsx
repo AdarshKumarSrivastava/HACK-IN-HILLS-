@@ -120,25 +120,28 @@ export default function Hero() {
         scrollTl.to(typographyRef.current, { y: '-40%', scale: 0.9, opacity: 0.2, ease: 'none' }, 0)
       }
 
-      // 4. Mouse Parallax (always checks phaseRef for interactive state)
-      const onMouseMove = (e: MouseEvent) => {
-        if (phaseRef.current !== 'complete') return
+      // 4. Mouse Parallax — only on desktop with fine pointer (no touch)
+      const mm = gsap.matchMedia()
+      mm.add('(min-width: 1024px) and (pointer: fine)', () => {
+        const onMouseMove = (e: MouseEvent) => {
+          if (phaseRef.current !== 'complete') return
 
-        const { clientX, clientY } = e
-        const xPos = (clientX / window.innerWidth - 0.5) * 2
-        const yPos = (clientY / window.innerHeight - 0.5) * 2
+          const { clientX, clientY } = e
+          const xPos = (clientX / window.innerWidth - 0.5) * 2
+          const yPos = (clientY / window.innerHeight - 0.5) * 2
 
-        gsap.to(mountainBackRef.current, { x: xPos * 6, y: yPos * 6, duration: 1, ease: 'power2.out' })
-        gsap.to(mountainMidRef.current, { x: xPos * 12, y: yPos * 12, duration: 1, ease: 'power2.out' })
-        gsap.to(typographyRef.current, { x: xPos * -15, y: yPos * -15, duration: 1.5, ease: 'power2.out' })
-        gsap.to(dataRef.current, { x: xPos * 8, y: yPos * 8, duration: 1, ease: 'power2.out' })
-      }
+          gsap.to(mountainBackRef.current, { x: xPos * 6, y: yPos * 6, duration: 1, ease: 'power2.out' })
+          gsap.to(mountainMidRef.current, { x: xPos * 12, y: yPos * 12, duration: 1, ease: 'power2.out' })
+          gsap.to(typographyRef.current, { x: xPos * -15, y: yPos * -15, duration: 1.5, ease: 'power2.out' })
+          gsap.to(dataRef.current, { x: xPos * 8, y: yPos * 8, duration: 1, ease: 'power2.out' })
+        }
 
-      window.addEventListener('mousemove', onMouseMove, { passive: true })
+        window.addEventListener('mousemove', onMouseMove, { passive: true })
 
-      return () => {
-        window.removeEventListener('mousemove', onMouseMove)
-      }
+        return () => {
+          window.removeEventListener('mousemove', onMouseMove)
+        }
+      })
     }, containerRef)
     
     ctxRef.current = ctx

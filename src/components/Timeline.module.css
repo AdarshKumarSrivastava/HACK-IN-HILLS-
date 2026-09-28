@@ -1,10 +1,10 @@
 .timelineSection {
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-height: 200vh;
   background-color: var(--color-volcanic-black);
   color: var(--color-snow-white);
-  padding: 10rem 0;
+  padding: clamp(4rem, 10vw, 10rem) 0;
   clip-path: inset(0); /* Allows sticky children while clipping overflow */
 }
 
@@ -12,13 +12,14 @@
   position: sticky;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  height: 100dvh;
   z-index: 0;
   overflow: hidden;
-  margin-top: -10rem; /* Compensate for section padding */
+  margin-top: clamp(-4rem, -10vw, -10rem); /* Compensate for section padding */
   margin-bottom: -100vh; /* Allow content to scroll over it */
-  background-color: #07090B; /* Base architectural dark */
+  background-color: #07090B;
 }
 
 .baseDarkness {
@@ -33,7 +34,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80vw;
+  width: min(80vw, 100%);
   height: 80vh;
   background: radial-gradient(circle, rgba(200, 210, 220, 0.03) 0%, transparent 60%);
   pointer-events: none;
@@ -43,7 +44,7 @@
   position: absolute;
   top: -10vh;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 120vh;
   background-image: 
     repeating-linear-gradient(to right, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 8vw),
@@ -65,14 +66,15 @@
 .header {
   position: sticky;
   top: 20vh;
-  left: 10vw;
+  left: 0;
   width: 40vw;
   z-index: var(--z-ui);
   mix-blend-mode: screen;
+  padding-left: clamp(1rem, 5vw, 10vw);
 }
 
 .header h2 {
-  font-size: 8vw;
+  font-size: clamp(2rem, 8vw, 10rem);
   line-height: 0.85;
   text-transform: uppercase;
   color: rgba(255,255,255,0.1);
@@ -82,8 +84,8 @@
 .routeContainer {
   position: absolute;
   top: 20vh;
-  right: 10vw;
-  width: 40vw;
+  right: clamp(2rem, 10vw, 10vw);
+  width: clamp(250px, 40vw, 40vw);
   height: 150vh;
   z-index: var(--z-ui);
 }
@@ -110,16 +112,18 @@
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(1rem, 2vw, 2rem);
   opacity: 0.2;
   filter: grayscale(1);
   transform: scale(0.95);
   transition: transform 0.4s ease;
-  cursor: none;
+  cursor: pointer;
 }
 
-.checkpoint:hover {
-  transform: scale(1.05) !important;
+@media (hover: hover) and (pointer: fine) {
+  .checkpoint:hover {
+    transform: scale(1.05) !important;
+  }
 }
 
 .node {
@@ -130,6 +134,7 @@
   border-radius: 50%;
   position: relative;
   box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
+  flex-shrink: 0;
 }
 
 .node::before {
@@ -150,13 +155,13 @@
 }
 
 .elevation {
-  font-size: 0.75rem;
+  font-size: clamp(0.6rem, 0.75vw, 0.75rem);
   letter-spacing: 0.2em;
   margin-bottom: 0.5rem;
 }
 
 .content h3 {
-  font-size: 2.5rem;
+  font-size: clamp(1.2rem, 2.5vw, 2.5rem);
   line-height: 1;
   margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
@@ -164,10 +169,13 @@
 
 .content p {
   color: var(--color-glacier-white);
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 0.85vw, 0.85rem);
   letter-spacing: 0.1em;
 }
 
+/* ========================================
+   RESPONSIVE — TABLET
+   ======================================== */
 @media (max-width: 1024px) {
   .header {
     position: relative;
@@ -176,13 +184,58 @@
     width: 100%;
     text-align: center;
     margin-bottom: 4rem;
+    padding-left: var(--section-padding-x);
+    padding-right: var(--section-padding-x);
   }
-  .header h2 { font-size: 15vw; }
+  .header h2 { font-size: clamp(3rem, 12vw, 8rem); }
   .routeContainer {
     position: relative;
     top: 0;
     right: 0;
-    width: 90vw;
+    width: 90%;
+    max-width: 600px;
     margin: 0 auto;
+    height: auto;
+    min-height: 120vh;
+  }
+}
+
+/* ========================================
+   RESPONSIVE — MOBILE
+   ======================================== */
+@media (max-width: 768px) {
+  .timelineSection {
+    min-height: auto;
+    padding: clamp(3rem, 8vw, 6rem) 0;
+  }
+  
+  .backgroundLayer {
+    margin-top: clamp(-3rem, -8vw, -6rem);
+  }
+  
+  .header h2 { font-size: clamp(2.5rem, 14vw, 5rem); }
+  
+  .routeContainer {
+    width: 100%;
+    padding: 0 var(--section-padding-x);
+    min-height: 100vh;
+  }
+  
+  /* Simplified mobile route: all checkpoints flow left-aligned */
+  .checkpoint {
+    left: 10% !important;
+    gap: 1rem;
+  }
+  
+  .content h3 {
+    font-size: clamp(1.1rem, 5vw, 1.8rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .header h2 { font-size: clamp(2rem, 16vw, 3.5rem); }
+  
+  .checkpoint {
+    left: 5% !important;
   }
 }

@@ -2,7 +2,7 @@
   position: relative;
   min-height: 100vh;
   background-color: #070707;
-  padding: 4rem;
+  padding: var(--section-padding-x);
   color: var(--color-snow-white);
   overflow: hidden;
   display: flex;
@@ -57,24 +57,24 @@
 .metadataMarker {
   position: absolute;
   font-family: var(--font-technical);
-  font-size: 0.65rem;
+  font-size: clamp(0.5rem, 0.65vw, 0.65rem);
   letter-spacing: 0.2em;
   color: rgba(255, 255, 255, 0.4);
 }
 
 .topLeft {
-  top: 2rem;
-  left: 2rem;
+  top: clamp(1rem, 2vw, 2rem);
+  left: clamp(1rem, 2vw, 2rem);
 }
 
 .topRight {
-  top: 2rem;
-  right: 2rem;
+  top: clamp(1rem, 2vw, 2rem);
+  right: clamp(1rem, 2vw, 2rem);
 }
 
 .bottomRight {
-  bottom: 2rem;
-  right: 2rem;
+  bottom: clamp(1rem, 2vw, 2rem);
+  right: clamp(1rem, 2vw, 2rem);
 }
 
 
@@ -88,7 +88,7 @@
   display: flex;
   flex: 1;
   width: 100%;
-  margin-top: 4rem;
+  margin-top: clamp(2rem, 4vw, 4rem);
 }
 
 
@@ -104,6 +104,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 2rem 0;
+  flex-shrink: 0;
 }
 
 .globalPathLine {
@@ -216,8 +217,10 @@
   color: var(--color-snow-white);
 }
 
-.waypoint:hover .waypointCore {
-  background: rgba(255, 255, 255, 1);
+@media (hover: hover) and (pointer: fine) {
+  .waypoint:hover .waypointCore {
+    background: rgba(255, 255, 255, 1);
+  }
 }
 
 
@@ -226,16 +229,17 @@
    ========================================================================== */
 
 .rightPanel {
-  flex: 0 0 450px;
+  flex: 0 0 clamp(300px, 30vw, 450px);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 100%;
 }
 
 .detailCard {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3rem;
+  padding: clamp(1.5rem, 3vw, 3rem);
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -248,31 +252,32 @@
 }
 
 .detailCard h3 {
-  font-size: 3.5rem;
+  font-size: clamp(1.8rem, 3.5vw, 3.5rem);
   line-height: 0.9;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
+  word-break: break-word;
 }
 
 .detailSubtitle {
-  font-size: 1rem;
+  font-size: clamp(0.75rem, 1vw, 1rem);
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 2vw, 2rem);
   letter-spacing: 0.05em;
 }
 
 .desc {
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 0.95vw, 0.95rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1.5rem, 3vw, 3rem);
 }
 
 .metaDataGrid {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1.5rem, 3vw, 3rem);
 }
 
 /* ==========================================================================
@@ -284,13 +289,14 @@
   width: 100%;
   background: transparent;
   border: 1px solid rgba(255, 102, 0, 0.4);
-  padding: 1.25rem;
-  font-size: 0.75rem;
+  padding: clamp(1rem, 1.25vw, 1.25rem);
+  font-size: clamp(0.65rem, 0.75vw, 0.75rem);
   letter-spacing: 0.1em;
   text-align: left;
-  cursor: none;
+  cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 4px;
+  min-height: var(--touch-min);
 }
 
 .btnContent {
@@ -304,33 +310,123 @@
   margin-left: 0.5rem;
 }
 
-.registerBtn:hover {
-  background: rgba(255, 102, 0, 0.05);
-}
+@media (hover: hover) and (pointer: fine) {
+  .registerBtn:hover {
+    background: rgba(255, 102, 0, 0.05);
+  }
 
-.registerBtn:hover .btnArrow {
-  transform: translate(3px, -3px);
+  .registerBtn:hover .btnArrow {
+    transform: translate(3px, -3px);
+  }
 }
 
 /* ==========================================================================
-   7. RESPONSIVE DESIGN
+   7. MOBILE TRACK LIST (replaces waypoint map on mobile)
+   ========================================================================== */
+
+.mobileTrackList {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.mobileTrackItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(1rem, 2vw, 1.5rem) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+  min-height: var(--touch-min);
+}
+
+.mobileTrackItem:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobileTrackItem.active {
+  padding-left: 0.5rem;
+}
+
+.mobileTrackNum {
+  font-family: var(--font-technical);
+  font-size: clamp(0.6rem, 0.75vw, 0.75rem);
+  color: var(--color-expedition-orange);
+  flex-shrink: 0;
+  width: 2rem;
+}
+
+.mobileTrackTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease;
+}
+
+.mobileTrackItem.active .mobileTrackTitle {
+  color: var(--color-snow-white);
+}
+
+.mobileTrackDivider {
+  height: 1px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 0.5rem;
+}
+
+.mobileTrackIndicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mobileTrackItem.active .mobileTrackIndicator {
+  background: var(--color-expedition-orange);
+  box-shadow: 0 0 8px rgba(255, 87, 34, 0.5);
+}
+
+/* ==========================================================================
+   8. RESPONSIVE DESIGN
    ========================================================================== */
 
 @media (max-width: 1200px) {
-  .rightPanel { flex: 0 0 350px; }
-  .detailCard h3 { font-size: 2.5rem; }
+  .rightPanel { flex: 0 0 clamp(280px, 35vw, 350px); }
 }
 
 @media (max-width: 1024px) {
-  .tracksSection { padding: 2rem; }
-  .contentWrapper { flex-direction: column; gap: 4rem; }
+  .tracksSection { padding: clamp(1rem, 2vw, 2rem); }
+  .contentWrapper { flex-direction: column; gap: clamp(2rem, 4vw, 4rem); }
   .globalNavPath { display: none; }
   .rightPanel { flex: none; width: 100%; }
-  .waypointMap { min-height: 400px; }
+  
+  /* On tablet, show waypoint map but smaller */
+  .waypointMap { min-height: 350px; }
 }
 
 @media (max-width: 768px) {
+  .tracksSection { padding: clamp(1rem, 3vw, 1.5rem); }
+  
+  /* Hide the absolute-positioned waypoint map on mobile */
+  .waypointMap { display: none; }
+  
+  /* Show the mobile track list instead */
+  .mobileTrackList { display: flex; }
+  
+  .detailCard { padding: clamp(1.25rem, 3vw, 1.5rem); }
+  
+  /* Metadata markers — hide on mobile to avoid overflow */
+  .topLeft { display: none; }
+}
+
+@media (max-width: 480px) {
   .tracksSection { padding: 1rem; }
-  .detailCard { padding: 1.5rem; }
-  .detailCard h3 { font-size: 2rem; }
+  .detailCard h3 { font-size: 1.6rem; }
+  .metadataMarker { display: none; }
 }

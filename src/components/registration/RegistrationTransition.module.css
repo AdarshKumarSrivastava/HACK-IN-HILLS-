@@ -2,8 +2,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  height: 100dvh;
   z-index: 9999;
   pointer-events: none;
   display: flex;
@@ -58,10 +59,12 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding: 0 var(--section-padding-x);
+  max-width: 100%;
 }
 
 .title {
-  font-size: clamp(3rem, 6vw, 6rem);
+  font-size: clamp(2rem, 6vw, 6rem);
   letter-spacing: 0.05em;
   color: var(--color-snow-white);
   line-height: 0.9;
@@ -85,7 +88,7 @@
 }
 
 .subtitle {
-  font-size: 0.85rem;
+  font-size: clamp(0.65rem, 0.85vw, 0.85rem);
   letter-spacing: 0.3em;
   color: var(--color-cold-grey);
   opacity: 0;
@@ -98,6 +101,7 @@
   transform: translateX(-50%);
   width: 1px;
   height: 100vh;
+  height: 100dvh;
   display: flex;
   align-items: flex-end;
 }
@@ -123,15 +127,15 @@
 /* Micro-interactions */
 .coordinate {
   position: absolute;
-  font-size: 0.55rem;
+  font-size: clamp(0.45rem, 0.55vw, 0.55rem);
   letter-spacing: 0.2em;
   color: var(--color-cold-grey);
   opacity: 0;
   font-family: var(--font-technical);
 }
 
-.coordTopLeft { top: 2rem; left: 2rem; }
-.coordBottomRight { bottom: 2rem; right: 2rem; }
+.coordTopLeft { top: clamp(1rem, 2vw, 2rem); left: clamp(1rem, 2vw, 2rem); }
+.coordBottomRight { bottom: clamp(1rem, 2vw, 2rem); right: clamp(1rem, 2vw, 2rem); }
 
 .scanline {
   position: absolute;

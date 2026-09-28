@@ -63,9 +63,10 @@ export default function Sponsors() {
         }
       })
 
-      // Mouse Parallax Effect (Magnetic feel)
+      // Mouse Parallax Effect (Magnetic feel) — desktop only
       const handleMouseMove = (e: MouseEvent) => {
-        if (window.innerWidth <= 768) return // Disable on mobile
+        if (window.innerWidth <= 1024) return // Disable on tablet and mobile
+        if (window.matchMedia('(pointer: coarse)').matches) return // Disable on touch
 
         const { clientX, clientY } = e
         const xPos = (clientX / window.innerWidth - 0.5) * 2

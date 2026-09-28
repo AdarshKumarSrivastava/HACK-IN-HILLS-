@@ -21,11 +21,13 @@
   opacity: 0.3;
   transition: opacity 0.4s ease;
   pointer-events: auto;
-  cursor: none;
+  cursor: pointer;
 }
 
-.railItem:hover {
-  opacity: 0.7;
+@media (hover: hover) and (pointer: fine) {
+  .railItem:hover {
+    opacity: 0.7;
+  }
 }
 
 .railItem.active {
@@ -91,6 +93,7 @@
   text-transform: uppercase;
 }
 
+/* Hide on tablets and below — mobile nav handles section navigation */
 @media (max-width: 1024px) {
   .sideRail {
     display: none;

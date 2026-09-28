@@ -164,23 +164,7 @@ export default function Tracks() {
 
       <div className={styles.contentWrapper}>
         
-        {/* Far Left Global Navigation Path */}
-        <div className={styles.globalNavPath}>
-          <div className={styles.globalPathLine}></div>
-          <div className={styles.globalNode}></div>
-          <div className={`${styles.globalNode} ${styles.activeGlobalNode}`}>
-            <div className={styles.globalLabel}>
-              <span className="text-orange">02</span>
-              <br />
-              CHALLENGES
-            </div>
-          </div>
-          <div className={styles.globalNode}></div>
-          <div className={styles.globalNode}></div>
-          <div className={styles.globalNode}></div>
-        </div>
-
-        {/* Center Floating Waypoint Map */}
+                {/* Center Floating Waypoint Map — desktop/tablet */}
         <div className={styles.waypointMap}>
           {tracks.map((track, index) => (
             <div 
@@ -196,6 +180,22 @@ export default function Tracks() {
               <div className={styles.waypointLabel}>
                 {track.id}. {track.title}
               </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile Track List — shown on small screens via CSS */}
+        <div className={styles.mobileTrackList}>
+          {tracks.map((track, index) => (
+            <div 
+              key={track.id}
+              className={`${styles.mobileTrackItem} ${activeTrack === index ? styles.active : ''}`}
+              onClick={() => handleTrackChange(index)}
+            >
+              <span className={styles.mobileTrackNum}>{track.id}</span>
+              <span className={styles.mobileTrackTitle}>{track.title}</span>
+              <div className={styles.mobileTrackDivider}></div>
+              <div className={styles.mobileTrackIndicator}></div>
             </div>
           ))}
         </div>

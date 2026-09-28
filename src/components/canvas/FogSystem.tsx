@@ -30,7 +30,9 @@ function FogLayers() {
 
   // Create random fog clusters
   const fogs = useMemo(() => {
-    return Array.from({ length: 15 }).map(() => ({
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+    const fogCount = isMobile ? 8 : 15
+    return Array.from({ length: fogCount }).map(() => ({
       x: (Math.random() - 0.5) * viewport.width * 1.5,
       y: (Math.random() - 0.5) * viewport.height * 0.5 - viewport.height * 0.2, // bias towards bottom
       z: Math.random() * 4 - 2, // Layering depth

@@ -1,13 +1,14 @@
 .prizesSection {
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   color: var(--color-snow-white);
-  padding: 10rem 0;
+  padding: clamp(4rem, 10vw, 10rem) 0;
 }
 
 .prizesBg {
@@ -39,58 +40,70 @@
   text-align: center;
   width: 90%;
   max-width: 1200px;
+  padding: 0 var(--section-padding-x);
 }
 
 .subtitle {
-  font-size: 0.85rem;
+  font-size: clamp(0.65rem, 0.85vw, 0.85rem);
   letter-spacing: 0.4em;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 2vw, 2rem);
 }
 
 .number {
-  font-size: 15vw;
+  font-size: clamp(4rem, 15vw, 15vw);
   line-height: 1;
   margin: 0;
   text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .label {
-  font-size: 2.5rem;
+  font-size: clamp(1.2rem, 2.5vw, 2.5rem);
   letter-spacing: 0.1em;
-  margin-top: -1rem;
-  margin-bottom: 6rem;
+  margin-top: clamp(-0.5rem, -1vw, -1rem);
+  margin-bottom: clamp(2rem, 6vw, 6rem);
   opacity: 0.9;
 }
 
 .detailsGrid {
   display: flex;
   justify-content: space-around;
-  gap: 2rem;
+  gap: clamp(1rem, 2vw, 2rem);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 4rem;
+  padding-top: clamp(2rem, 4vw, 4rem);
+  flex-wrap: wrap;
 }
 
 .detailCard {
   text-align: center;
   flex: 1;
+  min-width: 150px;
 }
 
 .detailCard h4 {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
   margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
 }
 
 .detailCard p {
   color: var(--color-glacier-white);
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1vw, 1rem);
 }
 
 @media (max-width: 768px) {
-  .number { font-size: 25vw; }
-  .label { font-size: 1.5rem; }
   .detailsGrid {
     flex-direction: column;
-    gap: 3rem;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
   }
+  .detailCard {
+    min-width: auto;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .number { font-size: clamp(3rem, 20vw, 5rem); }
+  .label { font-size: clamp(1rem, 5vw, 1.5rem); }
 }

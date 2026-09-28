@@ -114,11 +114,14 @@ export default function Navigation() {
     }
   }, [])
 
-  // Mobile menu GSAP animation
+  // Mobile menu GSAP animation + scroll lock
   useEffect(() => {
     if (!menuRef.current || !linksRef.current) return
 
     if (isOpen) {
+      // Lock body scroll when menu is open
+      document.body.style.overflow = 'hidden'
+      
       gsap.to(menuRef.current, {
         clipPath: 'circle(150% at calc(100% - 2.5rem) 2.5rem)',
         duration: 1,
@@ -129,11 +132,19 @@ export default function Navigation() {
         { y: 0, opacity: 1, stagger: 0.05, duration: 0.6, ease: 'power2.out', delay: 0.3 }
       )
     } else {
+      // Restore body scroll when menu closes
+      document.body.style.overflow = ''
+      
       gsap.to(menuRef.current, {
         clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)',
         duration: 0.8,
         ease: 'power3.inOut'
       })
+    }
+    
+    // Cleanup: ensure scroll is restored if component unmounts while menu is open
+    return () => {
+      document.body.style.overflow = ''
     }
   }, [isOpen])
 

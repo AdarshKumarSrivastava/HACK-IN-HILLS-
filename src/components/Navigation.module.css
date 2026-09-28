@@ -24,7 +24,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     
     /* Typography */
-    font-size: 11px;
+    font-size: clamp(9px, 1.1vw, 11px);
     letter-spacing: 0.15em;
     color: var(--color-glacier-white);
     
@@ -59,7 +59,7 @@
   .desktopLinks {
     list-style: none;
     display: flex;
-    gap: 32px;
+    gap: clamp(16px, 2.5vw, 32px);
     margin: 0;
     padding: 0;
   }
@@ -113,17 +113,19 @@
     opacity: 1;
   }
   
-  .navItem:hover .navLink {
-    opacity: 1;
-  }
-  
-  .navItem:hover .navText {
-    letter-spacing: 0.2em;
-  }
-  
-  .navItem:hover .activeIndicator {
-    transform: translateX(-50%) scale(1);
-    opacity: 0.5;
+  @media (hover: hover) and (pointer: fine) {
+    .navItem:hover .navLink {
+      opacity: 1;
+    }
+    
+    .navItem:hover .navText {
+      letter-spacing: 0.2em;
+    }
+    
+    .navItem:hover .activeIndicator {
+      transform: translateX(-50%) scale(1);
+      opacity: 0.5;
+    }
   }
   
   /* Right Actions */
@@ -132,6 +134,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 1rem;
   }
   
   /* Desktop Register CTA */
@@ -173,23 +176,25 @@
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
-  .registerBtn:hover {
-    opacity: 1;
-  }
-  
-  .registerBtn:hover .registerText {
-    letter-spacing: 0.2em;
-  }
-  
-  .registerBtn:hover .registerArrow {
-    transform: translate(3px, -3px);
-    color: var(--color-expedition-orange);
-  }
-  
-  .registerBtn:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-    background-color: var(--color-expedition-orange);
+  @media (hover: hover) and (pointer: fine) {
+    .registerBtn:hover {
+      opacity: 1;
+    }
+    
+    .registerBtn:hover .registerText {
+      letter-spacing: 0.2em;
+    }
+    
+    .registerBtn:hover .registerArrow {
+      transform: translate(3px, -3px);
+      color: var(--color-expedition-orange);
+    }
+    
+    .registerBtn:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+      background-color: var(--color-expedition-orange);
+    }
   }
   
   .menuToggle {
@@ -200,6 +205,11 @@
     font-size: 11px;
     letter-spacing: 0.15em;
     cursor: pointer;
+    /* Ensure touch target on mobile */
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+    align-items: center;
+    justify-content: center;
   }
   
   /* =========================================
@@ -210,8 +220,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
+    height: 100dvh;
     z-index: calc(var(--z-nav) - 1);
     clip-path: circle(0% at calc(100% - 2.5rem) 2.5rem);
     background-color: var(--color-volcanic-black);
@@ -256,14 +267,16 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 100px 24px 40px;
+    padding: clamp(80px, 12vw, 100px) clamp(1.5rem, 5vw, 2rem) clamp(2rem, 5vw, 3rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   .mobileMenuHeader {
     font-size: 10px;
     letter-spacing: 0.3em;
     color: var(--color-cold-grey);
-    margin-bottom: 3rem;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
   }
   
   .mobileLinksList {
@@ -272,7 +285,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: clamp(1rem, 3vw, 1.5rem);
   }
   
   .mobileLinkItem {
@@ -282,17 +295,18 @@
   .mobileLink {
     text-decoration: none;
     color: var(--color-snow-white);
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
     font-weight: 500;
     text-transform: uppercase;
     display: flex;
     align-items: baseline;
     gap: 1rem;
     transition: color 0.3s ease;
+    min-height: var(--touch-min);
   }
   
   .mobileLinkNum {
-    font-size: 1rem;
+    font-size: clamp(0.75rem, 2vw, 1rem);
     color: var(--color-expedition-orange);
     font-family: var(--font-technical);
   }
@@ -301,11 +315,12 @@
     background: none;
     border: none;
     color: var(--color-expedition-orange);
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
     font-weight: 500;
     cursor: pointer;
     text-align: left;
     padding: 0;
+    min-height: var(--touch-min);
   }
   
   .mobileMenuFooter {
@@ -315,6 +330,7 @@
     color: var(--color-glacier-white);
     opacity: 0.6;
     line-height: 1.6;
+    padding-top: 2rem;
   }
   
   /* =========================================
@@ -331,16 +347,31 @@
     }
     
     .menuToggle {
-      display: block;
+      display: flex;
     }
     
     .navBar {
       padding: 0 var(--hero-gutter-x);
-      height: 64px; /* Slightly smaller for mobile, but keeps grid alignment */
+      height: clamp(56px, 8vw, 64px);
     }
     
     .navBar.scrolled {
       top: 0;
       height: 56px;
+    }
+  }
+
+  /* Very small screens — tighten mobile menu */
+  @media (max-width: 360px) {
+    .mobileLink {
+      font-size: 1.6rem;
+      gap: 0.75rem;
+    }
+    .mobileRegisterBtn {
+      font-size: 1.3rem;
+    }
+    .mobileMenuContent {
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
