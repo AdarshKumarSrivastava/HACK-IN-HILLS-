@@ -2,7 +2,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import styles from './Navigation.module.css'
 import { useTransition } from '@/context/TransitionContext'
@@ -26,7 +26,6 @@ export default function Navigation() {
   
   const { phase, startRegistrationTransition, transitionState } = useTransition()
   const pathname = usePathname()
-  const router = useRouter()
 
   // App initialization & reveal
   useEffect(() => {

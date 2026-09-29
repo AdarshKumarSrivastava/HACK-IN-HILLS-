@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './Hero.module.css'
@@ -154,6 +153,7 @@ export default function Hero() {
   // 5. Trigger Transition safely
   useEffect(() => {
     if (phase === 'transitioning' && ctxRef.current) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (ctxRef.current as any).playTransition()
     }
   }, [phase])

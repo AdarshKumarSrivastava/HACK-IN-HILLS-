@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './Tracks.module.css'
@@ -159,7 +158,7 @@ export default function Tracks() {
           ROAD &nbsp; → &nbsp; <span className="text-orange">JOURNEY</span> &nbsp; → &nbsp; CHALLENGE &nbsp; → &nbsp; SUMMIT
         </div>
         <div className={`${styles.metadataMarker} ${styles.topRight}`}>H.IH / 26</div>
-        <div className={`${styles.metadataMarker} ${styles.bottomRight}`}>32°14'N &nbsp; 77°11'E &nbsp; —</div>
+        <div className={`${styles.metadataMarker} ${styles.bottomRight}`}>32°14&apos;N &nbsp; 77°11&apos;E &nbsp; —</div>
       </div>
 
       <div className={styles.contentWrapper}>

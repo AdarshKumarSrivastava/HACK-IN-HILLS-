@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import gsap from 'gsap'
 import styles from './RegistrationModal.module.css'
