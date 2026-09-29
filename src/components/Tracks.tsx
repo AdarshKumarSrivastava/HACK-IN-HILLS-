@@ -145,6 +145,7 @@ export default function Tracks() {
       {/* Exact Match Background */}
       <div className={styles.backgroundLayer}>
         <div className={styles.bgImageWrapper}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src="/images/tracks-bg-abstract.png" 
             alt="Tracks Atmospheric Background" 
